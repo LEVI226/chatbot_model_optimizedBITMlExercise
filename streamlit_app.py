@@ -1410,7 +1410,10 @@ def main():
            # Informations système détaillées
 st.markdown("**💻 Environnement Système**")
 
+
+# APRÈS (correct)
 try:
+    st.markdown("**💻 Environnement Système**")
     system_info = {
         "PyTorch Version": torch.__version__,
         "Device": "CPU (Streamlit Cloud optimized)",
