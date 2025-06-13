@@ -1406,14 +1406,10 @@ def main():
                 - Cache: Streamlit @cache_resource
                 - Fallback: Multi-model support
                 """)
-            
-           # Informations système détaillées
-st.markdown("**💻 Environnement Système**")
-
-
 # APRÈS (correct)
 try:
     st.markdown("**💻 Environnement Système**")
+    
     system_info = {
         "PyTorch Version": torch.__version__,
         "Device": "CPU (Streamlit Cloud optimized)",
@@ -1430,3 +1426,9 @@ try:
         
 except Exception as e:
     st.error(f"Erreur lors de l'affichage des informations système: {e}")
+
+# Statistiques de session (si applicable)
+if len(st.session_state.messages) > 0:
+    st.markdown("**📈 Statistiques de Session**")
+    session_stats = conversation_manager.get_conversation_stats()
+    st.json(session_stats)
