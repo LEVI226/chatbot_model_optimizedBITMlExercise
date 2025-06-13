@@ -1,7 +1,13 @@
-streamlit==1.28.0
-transformers==4.35.0
-torch==2.0.1
-tokenizers==0.15.0
-numpy==1.24.3
+
+
+
+# Version compatible pour Streamlit Cloud (Python 3.13)
+streamlit>=1.28.0
+transformers>=4.35.0,<5.0.0
+torch>=2.5.0
+tokenizers>=0.14.0,<0.15.0
+accelerate>=0.20.0
+numpy>=1.24.0
+pandas>=2.0.0
 safetensors==0.4.0
 huggingface-hub==0.19.0
