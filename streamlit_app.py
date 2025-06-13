@@ -1406,29 +1406,44 @@ def main():
                 - Cache: Streamlit @cache_resource
                 - Fallback: Multi-model support
                 """)
-# APRÈS (correct)
-try:
-    st.markdown("**💻 Environnement Système**")
+            # Informations système détaillées
+            st.markdown("**💻 Environnement Système**")
+            
+            try:
+                system_info = {
+                    "PyTorch Version": torch.__version__,
+                    "Device": "CPU (Streamlit Cloud optimized)",
+                    "Python Version": f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}",
+                    "Memory Management": "Auto garbage collection + torch cache clearing",
+                    "Streaming": "Real-time word-by-word streaming",
+                    "Cache Strategy": "Model cached with @cache_resource, data with @cache_data",
+                    "Error Handling": "Multi-attempt generation with fallback responses",
+                    "Context Management": f"Auto-reset after {ModelConfig.AUTO_RESET_THRESHOLD} exchanges, max {ModelConfig.MAX_CONTEXT_LENGTH} tokens"
+                }
+                
+                for key, value in system_info.items():
+                    st.text(f"{key}: {value}")
+                    
+            except Exception as e:
+                st.error(f"Erreur lors de l'affichage des informations système: {e}")
+            
+            # Statistiques de session
+            if len(st.session_state.messages) > 0:
+                st.markdown("**📈 Statistiques de Session**")
+                session_stats = conversation_manager.get_conversation_stats()
+                st.json(session_stats)
     
-    system_info = {
-        "PyTorch Version": torch.__version__,
-        "Device": "CPU (Streamlit Cloud optimized)",
-        "Python Version": f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}",
-        "Memory Management": "Auto garbage collection + torch cache clearing",
-        "Streaming": "Real-time word-by-word streaming",
-        "Cache Strategy": "Model cached with @cache_resource, data with @cache_data",
-        "Error Handling": "Multi-attempt generation with fallback responses",
-        "Context Management": f"Auto-reset after {ModelConfig.AUTO_RESET_THRESHOLD} exchanges, max {ModelConfig.MAX_CONTEXT_LENGTH} tokens"
-    }
-    
-    for key, value in system_info.items():
-        st.text(f"{key}: {value}")
+    except Exception as e:
+        logger.error(f"Erreur critique dans main(): {e}")
+        st.error(f"❌ Erreur critique de l'application: {str(e)[:200]}...")
         
-except Exception as e:
-    st.error(f"Erreur lors de l'affichage des informations système: {e}")
+        if st.button("🔄 Redémarrer l'application"):
+            st.cache_resource.clear()
+            st.cache_data.clear()
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
 
-# Statistiques de session (si applicable)
-if len(st.session_state.messages) > 0:
-    st.markdown("**📈 Statistiques de Session**")
-    session_stats = conversation_manager.get_conversation_stats()
-    st.json(session_stats)
+# Point d'entrée de l'application
+if __name__ == "__main__":
+    main()
