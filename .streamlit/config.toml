@@ -1,0 +1,26 @@
+[server]
+# Augmenter les limites pour le modèle
+maxUploadSize = 200
+maxMessageSize = 200
+enableCORS = false
+enableXsrfProtection = false
+
+# Optimisation mémoire
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false
+showErrorDetails = true
+
+[theme]
+# Thème personnalisé
+primaryColor = "#667eea"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
+
+[client]
+# Cache et performance
+caching = true
+displayEnabled = true
