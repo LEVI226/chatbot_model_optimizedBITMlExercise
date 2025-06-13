@@ -1,26 +1,35 @@
 [server]
-# Augmenter les limites pour le modèle
-maxUploadSize = 200
-maxMessageSize = 200
+headless = true
+port = 8501
 enableCORS = false
 enableXsrfProtection = false
 
-# Optimisation mémoire
-fileWatcherType = "none"
-
 [browser]
 gatherUsageStats = false
-showErrorDetails = true
+serverAddress = "0.0.0.0"
 
 [theme]
-# Thème personnalisé
 primaryColor = "#667eea"
 backgroundColor = "#ffffff"
 secondaryBackgroundColor = "#f0f2f6"
 textColor = "#262730"
 font = "sans serif"
 
+[runner]
+magicEnabled = true
+installTracer = false
+fixMatplotlib = true
+
+[logger]
+level = "info"
+messageFormat = "%(asctime)s %(message)s"
+
 [client]
-# Cache et performance
 caching = true
 displayEnabled = true
+showErrorDetails = true
+
+[global]
+developmentMode = false
+logLevel = "info"
+unitTest = false
