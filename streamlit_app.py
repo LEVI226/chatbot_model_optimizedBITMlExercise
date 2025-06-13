@@ -1407,16 +1407,23 @@ def main():
                 - Fallback: Multi-model support
                 """)
             
-            # Informations système détaillées
-            st.markdown("**💻 Environnement Système**")
-            
-            try:
-                system_info = {
-                    "PyTorch Version": torch.__version__,
-                    "Device": "CPU (Streamlit Cloud optimized)",
-                    "Python Version": f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}",
-                    "Memory Management": "Auto garbage collection + torch cache clearing",
-                    "Streaming": "Real-time word-by-word streaming",
-                    "Cache Strategy": "Model cached with @cache_resource, data with @cache_data",
-                    "Error Handling": "Multi-attempt generation with fallback responses",
-                    "Context Management": f
+           # Informations système détaillées
+st.markdown("**💻 Environnement Système**")
+
+try:
+    system_info = {
+        "PyTorch Version": torch.__version__,
+        "Device": "CPU (Streamlit Cloud optimized)",
+        "Python Version": f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}",
+        "Memory Management": "Auto garbage collection + torch cache clearing",
+        "Streaming": "Real-time word-by-word streaming",
+        "Cache Strategy": "Model cached with @cache_resource, data with @cache_data",
+        "Error Handling": "Multi-attempt generation with fallback responses",
+        "Context Management": f"Auto-reset after {ModelConfig.AUTO_RESET_THRESHOLD} exchanges, max {ModelConfig.MAX_CONTEXT_LENGTH} tokens"
+    }
+    
+    for key, value in system_info.items():
+        st.text(f"{key}: {value}")
+        
+except Exception as e:
+    st.error(f"Erreur lors de l'affichage des informations système: {e}")
